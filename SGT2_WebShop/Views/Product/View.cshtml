@@ -1,0 +1,22 @@
+﻿@model ProductModel;
+
+<h1>@Model.Name</h1>
+<table class="table">
+    <tr>
+        <th>Category</th>
+        <td>@Model.Subcategory.Category.Title</td>
+    </tr>
+     <tr>
+        <th>Subcategory</th>
+        <td>@Model.Subcategory.Title</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <th>Price</th>
+        <td>@Model.Price</td>
+    </tr>
+</table>
+<td><a asp-controller="Home" asp-action="Index" asp-route-subcategoryId="@Model.Subcategory.Id">Back</a> </td>

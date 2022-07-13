@@ -1,0 +1,9 @@
+﻿@model CategoryModel
+
+<form class="col-6" asp-controller="Category" asp-action="NewCategory" method="post">
+  <div class="mb-3">
+    <label asp-for="Title" class="form-label">Category name</label>
+    <input asp-for="Title" type="text" class="form-control" >
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

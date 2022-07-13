@@ -1,0 +1,50 @@
+﻿@model NewProductModel
+
+<form class="col-6" asp-controller="Product" asp-action="NewProduct" method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label asp-for="Name" class="form-label">Product name</label>
+    <input asp-for="Name" type="text" class="form-control" >
+  </div>
+  <div class="mb-3">
+    <label asp-for="Description" class="form-label">Description</label>
+    <input asp-for="Description" type="text" class="form-control" >
+  </div>
+  <div class="mb-3">
+    <label asp-for="Price" class="form-label">Price</label>
+    <input asp-for="Price" type="number" class="form-control" >
+  </div>
+  <div class="mb-3">
+    <label asp-for="SelectedSubcategoryId" class="form-label">Subcategory</label>
+    <select asp-for="SelectedSubcategoryId" class="form-select">
+        <option selected></option>
+        @foreach(var subcategory in Model.Subcategories)
+        {
+            <option value="@subcategory.Id">@subcategory.Title</option>   
+        }
+    </select>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Image" class="form-label">Image Upload with Preview</label>
+    <input asp-for="Image" name="Image" class="form-control" type="file" id="formFile" onchange="preview()">
+    <br />
+    <div class="thumbnail">
+        <img id="frame" src="" class ="img-thumbnail" />
+    </div>
+    
+    <button onclick="clearImage()" class="btn btn-primary mt-3">Clear</button>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    function preview() 
+    {
+        frame.src = URL.createObjectURL(event.target.files[0]);
+    }
+    function clearImage() 
+    {
+        document.getElementById('formFile').value = null;
+        frame.src = "";
+    }
+</script>

@@ -1,0 +1,57 @@
+﻿@model HomeModel
+
+<div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+            @foreach(var category in Model.Categories)
+            {
+                <div class="list-group">
+                    <a class="list-group-item active">
+                      @category.Title
+                    </a>
+                    @foreach(var subcategory in category.Subcategories)
+                    {
+                     <a asp-controller="Home" asp-action="Index" asp-route-subcategoryId="@subcategory.Id" class="list-group-item">
+                         @subcategory.Title <span class="badge">0</span>
+                     </a>   
+                    }
+                 </div>                
+            }
+
+        </div>
+        <div class="col-sm-8">
+          <div>
+            <div class="row">
+                    @if(Model.SelectedSubcategory != null && Model.SelectedSubcategory.Products.Count != 0)
+                    {
+                        @foreach(var product in Model.SelectedSubcategory.Products)
+                        {
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img class ="img-thumbnail" src="@(System.IO.Path.Combine("Photos", product.ImageName))" alt="...">
+                                    <div class="caption text-center">
+                                    <h3>
+                                        <a asp-controller="Product" asp-action="View" asp-route-id="@product.Id">
+                                            @product.Name
+                                        </a>
+                                    </h3>
+                                    <p>Price: <span>@product.Price€</span></p>
+                                    <p><a href="#" class="btn btn-primary" role="button">Add to cart</a></p>
+                                    </div>
+                                </div>
+                            </div>                            
+                        }
+                    }
+                    else if (Model.SelectedSubcategory != null)
+                    {                       
+                       <p>There are no products in @Model.SelectedSubcategory.Title subcategory</p>
+                    }
+                    else
+                    {
+                        <p>Please select subcategory</p> 
+                    }
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>

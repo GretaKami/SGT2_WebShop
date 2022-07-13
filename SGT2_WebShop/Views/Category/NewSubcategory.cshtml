@@ -1,0 +1,20 @@
+﻿@model NewSubcategoryModel
+
+<form class="col-6" asp-controller="Category" asp-action="NewSubcategory" method="post">
+  <div class="mb-3">
+    <label asp-for="Title" class="form-label">Subcategory name</label>
+    <input asp-for="Title" type="text" class="form-control" >
+  </div>
+  <div class="mb-3">
+    <label asp-for="Title" class="form-label">Category</label>
+    <select asp-for="SelectedCategoryId" class="form-select">
+        <option selected></option>
+        @foreach(var category in Model.Categories)
+        {
+            <option value="@category.ID">@category.Title</option>   
+        }
+    </select>
+  </div>
+ 
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

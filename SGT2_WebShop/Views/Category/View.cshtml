@@ -1,0 +1,24 @@
+﻿@model List<SubcategoryModel>;
+@if(@Model.Count == 0)
+{
+    <p>This category has no subcategories</p>
+}
+else
+{
+
+    <table class="table">
+        <tr>
+            <th>Title</th>
+        </tr>
+        @foreach(var subcategory in Model)
+        {
+            <tr>
+                <td>@subcategory.Title</td>
+            </tr>
+        }
+    </table>
+    
+}
+
+
+<p><a asp-area="" asp-controller="Category" asp-action="Index" >Back</a></p>
