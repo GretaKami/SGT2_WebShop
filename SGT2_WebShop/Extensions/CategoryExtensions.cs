@@ -3,7 +3,7 @@ using WebShop_DataAccess.Context.Entities;
 
 namespace SGT2_WebShop.Extensions
 {
-    public static class CategoryExtension
+    public static class CategoryExtensions
     {
         public static CategoryModel ToModel(this Category category)
         {

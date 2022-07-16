@@ -1,5 +1,72 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model CartModel
+<style>
+    img{
+        width: auto;
+        height: 70%;
+    }
+
+    h8{
+        font-weight: bold;
+        text-align: right;
+    }    
+</style>
+
+<table class="table">
+    <tr>
+        <th class="col-2">Photo</th>
+        <th>Product name</th>
+        <th>Price per unit</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </tr>
+    @foreach(var item in Model.Items)
+    {
+        <tr>
+            <td class="col-2">
+                <div class="thumbnail">
+                    @if(item.Product.ImageName != null)
+                    {
+                        <img class ="img-thumbnail" 
+                             src="@(System.IO.Path.Combine("Photos", item.Product.ImageName))" 
+                             alt="..."
+                        >
+                    }
+                    else
+                    {
+                        <img class ="img-thumbnail" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTY2OTUzZGI1ZWMgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNjY5NTNkYjVlYyI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OS44NTkzNzUiIHk9IjEwNS40Ij4yNDJ4MjAwPC90ZXh0PjwvZz48L2c+PC9zdmc+" alt="...">
+                    }
+                </div>
+            </td>
+            <td>@item.Product.Name</td>
+            <td>@item.Product.Price</td>
+            <td>
+                <div class="input-group plus-minus-input">
+                  <div class="input-group-button">
+                      <form asp-controller="Cart" asp-action="SubtractQuantity" asp-route-productId="@item.Product.Id" method="post">
+                          <button class="btn btn-dark" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 25 25">
+                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                </svg>
+                          </button>
+                      </form>
+                  </div>
+                  <p>&nbsp;&nbsp;@item.Quantity&nbsp;&nbsp;</p>
+                  <div class="input-group-button">
+                      <form asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-productId="@item.Product.Id" method="post">
+                          <button class="btn btn-dark" type="submit">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 25 25">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                            </svg>
+                          </button>
+                      </form>
+                  </div>
+                </div>
+            </td>
+            <td>@item.TotalPrice</td>
+        </tr>
+    }
+</table>
+
+<h8>Total sum: @Model.TotalSum €</h8>

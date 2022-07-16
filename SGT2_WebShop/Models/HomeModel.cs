@@ -5,5 +5,7 @@
         public List<CategoryModel> Categories { get; set; }
 
         public SubcategoryModel SelectedSubcategory { get; set; }
+
+        public int SelectedProductId { get; set; }
     }
 }

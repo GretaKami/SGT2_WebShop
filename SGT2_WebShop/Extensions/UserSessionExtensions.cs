@@ -2,7 +2,7 @@
 
 namespace SGT2_WebShop.Extensions
 {
-    public static class UserSessionExtension
+    public static class UserSessionExtensions
     {
         public static void SetSession (this ISession session, User user)
         {
@@ -14,6 +14,11 @@ namespace SGT2_WebShop.Extensions
         public static string? GetUserName (this ISession session)
         {
             return session.GetString("Name");
+        }
+
+        public static int? GetUserId(this ISession session)
+        {
+            return session.GetInt32("Id");
         }
     }
 }

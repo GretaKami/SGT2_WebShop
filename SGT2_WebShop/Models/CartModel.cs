@@ -7,5 +7,7 @@
         public int UserId { get; set; }
 
         public List<CartItemModel> Items { get; set; }
+
+        public float TotalSum { get; set; }
     }
 }

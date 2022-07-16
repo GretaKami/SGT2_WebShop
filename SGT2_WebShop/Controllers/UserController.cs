@@ -9,10 +9,12 @@ namespace SGT2_WebShop.Controllers
     public class UserController : Controller
     {
         private readonly IUserManager _userManager;
+        private readonly ICartManager _cartManager;
 
-        public UserController(IUserManager userManager)
+        public UserController(IUserManager userManager, ICartManager cartManager)
         {
             _userManager = userManager;
+            _cartManager = cartManager;
         }
 
         [HttpGet]
@@ -76,6 +78,7 @@ namespace SGT2_WebShop.Controllers
                 };
 
                 _userManager.AddUser(newUser);
+                _cartManager.CreateNewCart(newUser);
 
                 return RedirectToAction("SignIn");
 

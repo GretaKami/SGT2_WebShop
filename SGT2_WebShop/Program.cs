@@ -10,6 +10,8 @@ builder.Services.AddTransient<ICategoryManager, CategoryManager>();
 builder.Services.AddTransient<IProductManager, ProductManager>();
 builder.Services.AddTransient<IUserManager, UserManager>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<ICartManager, CartManager>();
+builder.Services.AddTransient<ICartItemManager, CartItemManager>();
 
 builder.Services.AddDbContext<WebShopDbContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("WebShopDb")));

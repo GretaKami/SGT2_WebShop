@@ -14,7 +14,7 @@ namespace WebShop_DataAccess.Context.Entities
 
         public List<User> Users { get; set; }
 
-        public List<CartItem> Items { get; set; }
+        //public List<CartItem> Items { get; set; }
 
         public float Sum { get; set; }
 
