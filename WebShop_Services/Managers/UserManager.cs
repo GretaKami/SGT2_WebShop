@@ -1,55 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebShop_DataAccess.Context;
-using WebShop_DataAccess.Context.Entities;
+﻿using WebShop_DataAccess.Context.Entities;
+using WebShop_Services.Repositories;
 
 namespace WebShop_Services.Managers
 {
     public class UserManager : IUserManager
     {
-        private readonly WebShopDbContext _context;
+        private readonly IUserRepository _userRepository;
 
-        public UserManager(WebShopDbContext context)
+        public UserManager(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
         public void AddUser(User user)
         {
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            if(user != null)
+            {
+                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
-            _context.Users.Add(user);
-            _context.SaveChanges();          
+                _userRepository.AddUser(user);
+            }
+            else
+            {
+                throw new Exception("user is null");
+            }
+                     
         }
 
         public User? GetUserFromDb(string username, string password)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Username.Equals(username));
-            bool isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+            var user = _userRepository.GetUserByUsername(username);
 
-            if (isValid) return user;
-            else return null;
+            if(user != null)
+            {
+                bool isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+                if (isValid) return user;
+            }
 
+            return null;     
+                       
         }
 
         public bool IsUsernameValid(string username)
         {
-            bool isValid;
-            var user = _context.Users.FirstOrDefault(n => n.Username.Equals(username));
-            isValid = user == null;
+            if (username != null)
+            {
+                bool isValid;
+                var user = _userRepository.GetUserByUsername(username);
+                isValid = user == null;
 
-            return isValid;
+                return isValid;
+            }
+            else throw new Exception("username is null");
+            
         }
 
         public bool IsEmailValid(string email)
         {
-            bool isValid;
-            var user = _context.Users.FirstOrDefault(n => n.Email.Equals(email));
-            isValid = user == null;
+            if(email != null)
+            {
+                bool isValid;
+                var user = _userRepository.GetUserByEmail(email);
+                isValid = user == null;
 
-            return isValid;
+                return isValid;
+            }
+            else throw new Exception("email is null");            
 
         }
     }

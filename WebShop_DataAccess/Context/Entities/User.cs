@@ -19,6 +19,8 @@ namespace WebShop_DataAccess.Context.Entities
         public string Surname { get; set; }
 
         public string Email { get; set; }
+
+        public List<Order> Orders { get; set; }
        
     }
 }

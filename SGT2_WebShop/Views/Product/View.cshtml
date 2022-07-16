@@ -1,8 +1,12 @@
 ﻿@model ProductModel;
 
 <h1>@Model.Name</h1>
+@if(Model.ImageName != null)
+    {
+        <img class ="img-thumbnail" src="@(System.IO.Path.Combine("Photos", Model.ImageName))" alt="...">
+    }
 <table class="table">
-    <tr>
+     <tr>
         <th>Category</th>
         <td>@Model.Subcategory.Category.Title</td>
     </tr>

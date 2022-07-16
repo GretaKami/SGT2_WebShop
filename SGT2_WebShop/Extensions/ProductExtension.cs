@@ -13,7 +13,9 @@ namespace SGT2_WebShop.Extensions
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                Subcategory = product.Subcategory.ToModelForProduct()
+                Subcategory = product.Subcategory.ToModelForProduct(),
+                ImageName = product.ImageName
+
 
             };
 
