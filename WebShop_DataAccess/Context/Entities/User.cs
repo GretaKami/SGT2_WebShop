@@ -20,6 +20,8 @@ namespace WebShop_DataAccess.Context.Entities
 
         public string Email { get; set; }
 
+        public Cart Cart { get; set; }
+
         public List<Order> Orders { get; set; }
        
     }

@@ -33,6 +33,12 @@ namespace SGT2_WebShop.Controllers
                 if ( user != null)
                 {
                     HttpContext.Session.SetSession(user);
+
+                    if(_cartManager.GetCartFromDb(user.Id) == null)
+                    {
+                        _cartManager.CreateNewCart(user.Id);
+                    }
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -78,7 +84,6 @@ namespace SGT2_WebShop.Controllers
                 };
 
                 _userManager.AddUser(newUser);
-                _cartManager.CreateNewCart(newUser);
 
                 return RedirectToAction("SignIn");
 

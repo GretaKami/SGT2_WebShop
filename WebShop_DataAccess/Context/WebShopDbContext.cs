@@ -17,7 +17,7 @@ namespace WebShop_DataAccess.Context
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> Cart_Items { get; set; }
         public DbSet<Order> Orders { get; set; }
-
+        public DbSet<OrderItem> Order_Items { get; set; }
 
     }
 }

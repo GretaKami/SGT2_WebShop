@@ -6,6 +6,9 @@ namespace WebShop_Services.Managers
     {
         public Cart GetCartFromDb(int userID);
 
-        public void CreateNewCart(User user);
+        public void CreateNewCart(int userId);
+
+        public void ClearCartItems(Cart cart);
+
     }
 }

@@ -6,12 +6,14 @@ using WebShop_Services.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddTransient<ICategoryManager, CategoryManager>();
-builder.Services.AddTransient<IProductManager, ProductManager>();
-builder.Services.AddTransient<IUserManager, UserManager>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<ICartManager, CartManager>();
-builder.Services.AddTransient<ICartItemManager, CartItemManager>();
+builder.Services.AddScoped<ICategoryManager, CategoryManager>();
+builder.Services.AddScoped<IProductManager, ProductManager>();
+builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICartManager, CartManager>();
+builder.Services.AddScoped<ICartItemManager, CartItemManager>();
+builder.Services.AddScoped<IOrderManager, OrderManager>();
+builder.Services.AddScoped<IOrderItemManager, OrderItemManager>();
 
 builder.Services.AddDbContext<WebShopDbContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("WebShopDb")));

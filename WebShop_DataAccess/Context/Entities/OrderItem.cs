@@ -1,7 +1,7 @@
 ﻿
 namespace WebShop_DataAccess.Context.Entities
 {
-    public class CartItem
+    public class OrderItem
     {
         public int Id { get; set; }
 
@@ -11,9 +11,8 @@ namespace WebShop_DataAccess.Context.Entities
 
         public int Quantity { get; set; }
 
-        public int CartId { get; set; }
+        public int OrderId { get; set; }
 
-        public Cart Cart { get; set; }
-
+        public Order Order { get; set; }
     }
 }

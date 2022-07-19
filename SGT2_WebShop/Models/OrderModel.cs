@@ -1,20 +1,17 @@
-﻿
-namespace WebShop_DataAccess.Context.Entities
+﻿using WebShop_DataAccess.Context.Entities;
+
+namespace SGT2_WebShop.Models
 {
-    public class Order
+    public class OrderModel
     {
         public int Id { get; set; }
 
         public int UserId { get; set; }
 
-        public List<User> Users { get; set; }
-
-        public List<OrderItem> Items { get; set; }
+        public List<CartItem> Items { get; set; }
 
         public float Sum { get; set; }
 
         public DateTime PurchaseDate { get; set; }
-
-        
     }
 }

@@ -12,7 +12,7 @@ namespace SGT2_WebShop.Extensions
             var cartItemModel = new CartItemModel
             {
                 Id = cartItem.Id,
-                CartId = cartItem.CartId,
+                CartId = (int)cartItem.CartId,
                 ProductId = cartItem.ProductId,
                 Product = cartItem.Product.ToModelForCartItem(),
                 Quantity = cartItem.Quantity,
@@ -21,5 +21,7 @@ namespace SGT2_WebShop.Extensions
 
             return cartItemModel;
         }
+
+      
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebShop_DataAccess.Context;
 
@@ -11,9 +12,10 @@ using WebShop_DataAccess.Context;
 namespace WebShop_DataAccess.Migrations
 {
     [DbContext(typeof(WebShopDbContext))]
-    partial class WebShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220717160251_orderTable")]
+    partial class orderTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +52,7 @@ namespace WebShop_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Carts");
                 });
@@ -67,6 +68,9 @@ namespace WebShop_DataAccess.Migrations
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -76,6 +80,8 @@ namespace WebShop_DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
+
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
@@ -119,32 +125,6 @@ namespace WebShop_DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("WebShop_DataAccess.Context.Entities.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Order_Items");
                 });
 
             modelBuilder.Entity("WebShop_DataAccess.Context.Entities.Product", b =>
@@ -255,8 +235,8 @@ namespace WebShop_DataAccess.Migrations
             modelBuilder.Entity("WebShop_DataAccess.Context.Entities.Cart", b =>
                 {
                     b.HasOne("WebShop_DataAccess.Context.Entities.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("WebShop_DataAccess.Context.Entities.Cart", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -271,6 +251,10 @@ namespace WebShop_DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebShop_DataAccess.Context.Entities.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId");
+
                     b.HasOne("WebShop_DataAccess.Context.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -278,23 +262,6 @@ namespace WebShop_DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Cart");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("WebShop_DataAccess.Context.Entities.OrderItem", b =>
-                {
-                    b.HasOne("WebShop_DataAccess.Context.Entities.Order", "Order")
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebShop_DataAccess.Context.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Order");
 
@@ -341,12 +308,6 @@ namespace WebShop_DataAccess.Migrations
             modelBuilder.Entity("WebShop_DataAccess.Context.Entities.Subcategory", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("WebShop_DataAccess.Context.Entities.User", b =>
-                {
-                    b.Navigation("Cart")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -12,12 +12,11 @@ namespace WebShop_Services.Managers
             _context = context;
         }
 
-        public void CreateNewCart(User user)
+        public void CreateNewCart(int userId)
         {            
             var Cart = new Cart
             {
-                UserId = user.Id,
-                User = user
+                UserId = userId
             };
 
             _context.Carts.Add(Cart);
@@ -33,5 +32,14 @@ namespace WebShop_Services.Managers
             return cart;
         }
 
+        public void ClearCartItems(Cart cart)
+        {
+            foreach(var item in cart.Items)
+            {
+                _context.Cart_Items.Remove(item);
+            }
+
+            _context.SaveChanges();
+        }
     }
 }
