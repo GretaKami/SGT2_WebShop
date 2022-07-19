@@ -23,6 +23,8 @@ namespace WebShop_DataAccess.Context.Entities
         public Cart Cart { get; set; }
 
         public List<Order> Orders { get; set; }
+
+        public UserType UserType { get; set; }
        
     }
 }

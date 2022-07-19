@@ -23,21 +23,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        @if(Context.Session.GetUserType() == 1)
+                        {
+                            <li class="nav-item">
                             <a class="nav-link text-light" asp-controller="Category" asp-action="Index">Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Category" asp-action="NewCategory">Add category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Category" asp-action="NewSubcategory">Add subcategory</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Product" asp-action="Index">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Product" asp-action="NewProduct">Add product</a>
-                        </li>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Category" asp-action="NewCategory">Add category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Category" asp-action="NewSubcategory">Add subcategory</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Product" asp-action="Index">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Product" asp-action="NewProduct">Add product</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav">
                         @if(Context.Session.GetString("Name") != null)
